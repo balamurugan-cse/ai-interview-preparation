@@ -1,0 +1,6 @@
+{
+  "name": "DevPrep AI",
+  "description": "Smart placement preparation platform with deterministic aptitude tests, coding lab, Gemini-assisted resume analysis, mock interviews, and readiness analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
