@@ -49,10 +49,13 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
     setErrorMessage('');
     setSuccessNotice('');
 
-    const trimmedEmail = email.trim();
+    let trimmedEmail = email.trim();
     if (!trimmedEmail) {
       setErrorMessage('Please enter an authorized administrator email.');
       return;
+    }
+    if (trimmedEmail.toLowerCase() === 'admin') {
+      trimmedEmail = 'admin@devprep.ai';
     }
 
     if (!adminKey.trim() && (!password || password.length < 6)) {
@@ -163,10 +166,10 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@devprep.ai"
+                placeholder="admin@devprep.ai or admin"
                 className="w-full pl-10 pr-3 py-2.5 bg-slate-900/80 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-100 font-medium placeholder-slate-600"
                 required
               />

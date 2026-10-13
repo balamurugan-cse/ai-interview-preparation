@@ -675,10 +675,12 @@ app.post('/api/v1/auth/login', (req: Request, res: Response) => {
   });
 });
 
-// Dedicated Admin Console Login Endpoint (Separate Privileged Access)
 app.post('/api/v1/auth/admin-login', (req: Request, res: Response) => {
   const { email, password, adminKey, displayName } = req.body;
-  const trimmedEmail = (email || '').trim();
+  let trimmedEmail = (email || '').trim();
+  if (trimmedEmail.toLowerCase() === 'admin') {
+    trimmedEmail = 'admin@devprep.ai';
+  }
   const trimmedKey = (adminKey || '').trim();
   const trimmedPass = (password || '').trim();
 
@@ -1730,6 +1732,12 @@ async function startServer() {
   });
 }
 
-startServer().catch((err) => {
-  console.error('Failed to start DevPrep AI server:', err);
-});
+// Only launch standalone listener if not running in a Vercel serverless environment
+if (!process.env.VERCEL) {
+  startServer().catch((err) => {
+    console.error('Failed to start DevPrep AI server:', err);
+  });
+}
+
+export default app;
+export { app };

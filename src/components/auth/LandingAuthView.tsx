@@ -46,11 +46,13 @@ export const LandingAuthView: React.FC<LandingAuthViewProps> = ({ onAuthenticate
     e.preventDefault();
     setErrorMessage('');
 
-    // Authentic Client Validation
-    const trimmedEmail = email.trim();
+    let trimmedEmail = email.trim();
     if (!trimmedEmail) {
       setErrorMessage('Please enter your email address.');
       return;
+    }
+    if (trimmedEmail.toLowerCase() === 'admin') {
+      trimmedEmail = 'admin@devprep.ai';
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(trimmedEmail)) {
@@ -281,10 +283,10 @@ export const LandingAuthView: React.FC<LandingAuthViewProps> = ({ onAuthenticate
                     <div className="relative">
                       <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                       <input
-                        type="email"
+                        type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@university.edu or you@company.com"
+                        placeholder="you@university.edu or email"
                         className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-800"
                         required
                       />
